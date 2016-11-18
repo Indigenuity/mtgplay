@@ -1,6 +1,7 @@
 package controllers;
 
 import experiment.Experiment;
+import play.db.jpa.Transactional;  
 import play.mvc.*;
 
 import views.html.*;
@@ -21,6 +22,7 @@ public class HomeController extends Controller {
         return ok(index.render("Your new application is ready."));
     }
     
+    @Transactional 
     public Result experiment() {
     	Experiment.runExperiment();
     	return ok();
