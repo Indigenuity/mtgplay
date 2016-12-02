@@ -60,7 +60,17 @@ public enum KeywordAbilityDef {
 	CONVOKE				("Convoke"),
 	CREW				("Crew ([0-9]+)", true),
 	CUMULATIVE_UPKEEP	("Cumulative Upkeep[— ]([^\\n,;]+)", false, true),
+	
+		PLAINS_CYCLING		("Plainscycling[— ]([^\\n,;]+)", false, true),
+		ISLAND_CYCLING		("Islandcycling[— ]([^\\n,;]+)", false, true),
+		SWAMP_CYCLING		("Swampcycling[— ]([^\\n,;]+)", false, true),
+		MOUNTAIN_CYCLING	("Mountaincycling[— ]([^\\n,;]+)", false, true),
+		FOREST_CYCLING		("Forestcycling[— ]([^\\n,;]+)", false, true),
+		BASIC_LAND_CYCLING	("Basic landcycling[— ]([^\\n,;]+)", false, true),
+		WIZARD_CYCLING		("Wizardcycling[— ]([^\\n,;]+)", false, true),
+		SLIVER_CYCLING		("Slivercycling[— ]([^\\n,;]+)", false, true),
 	CYCLING				("Cycling[— ]([^\\n,;]+)", false, true),
+	
 	DASH				("Dash[— ]([^\\n,;]+)", false, true),
 	DELVE				("Delve"),
 	DEHTRONE			("Dethrone"),

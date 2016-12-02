@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Card;
 import model.catalog.AbilityWord;
 import model.catalog.KeywordAbility;
 
 public class WCard {
+	
+	private Card card;
 
 	private Map<String, String> stringValues = new HashMap<String, String>();
 	private Map<String, Boolean> booleanValues = new HashMap<String, Boolean>();
@@ -18,7 +21,10 @@ public class WCard {
 	private List<KeywordAbility> keywordAbilities = new ArrayList<KeywordAbility>();
 	private List<AbilityWord> abilityWords = new ArrayList<AbilityWord>();
 	
-	
+	public WCard(){};
+	public WCard(Card card) {
+		this.card = card;
+	}
 	public Map<String, String> getStringValues() {
 		return stringValues;
 	}
@@ -55,6 +61,13 @@ public class WCard {
 	public void setAbilityWords(List<AbilityWord> abilityWords) {
 		this.abilityWords = abilityWords;
 	}
+	public Card getCard() {
+		return card;
+	}
+	public void setCard(Card card) {
+		this.card = card;
+	}
+	
 	
 	
 	

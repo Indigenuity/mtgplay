@@ -18,23 +18,40 @@ public class AbilityParser {
 	
 	private static final Pattern TRIGGER_CONDITION = Pattern.compile("\\bif([^,]+),");
 	
-	private static final Pattern EFFECT = Pattern.compile("\\b([^\\.]+)\\.");
-	private static final Pattern UNLESS_CONDITION = Pattern.compile("(?<=unless)(.+)");
+	private static final Pattern EFFECT = Pattern.compile("^([^\\.]+)\\.");
+	private static final Pattern UNLESS_CONDITION = Pattern.compile("unless(.+)");
 	private static final Pattern OPTIONAL_EFFECT = Pattern.compile(".+may.+");
 	
-	private static final Pattern DEPENDENT_EFFECT = Pattern.compile("if([^,]+)(?=does|do)does|do,");
+	private static final Pattern SENTENCE = Pattern.compile("^([^\\.]+).");
+	
+	private static final Pattern DEPENDENT_EFFECT = Pattern.compile("^If([^,]+)(?=does|do)does|do,");
 	
 	
+	private static final Pattern ACTIVATED_ABILITY = Pattern.compile("([^:]+):(.+)");
 	
 	
 	
 	public static ActivatedAbility getActivatedAbility(String text){
-		
+//		System.out.println("Parsing activated ability : " + text);
+		ActivatedAbility ability = new ActivatedAbility();
+		Matcher matcher = ACTIVATED_ABILITY.matcher(text);
+		if(matcher.find()){
+			String cost = matcher.group(1);
+			String effect = matcher.group(2);
+			
+			if(cost.contains("may") || cost.contains("has")){
+				System.out.println("Activated Ability has may or has");
+				return null;
+			}
+			ability.setCost(cost);
+			ability.setEffect(effect);
+			return ability;
+		}
 		return null;
 	}
 	
 	public static TriggeredAbility getTriggeredAbility(String text) {
-		System.out.println("Parsing triggered ability : " + text);
+//		System.out.println("Parsing triggered ability : " + text);
 		TriggeredAbility ability = new TriggeredAbility();
 		String trigger = extractMatch(TRIGGER, text);
 		if(trigger == null){
@@ -42,27 +59,54 @@ public class AbilityParser {
 		}
 		ability.setTrigger(trigger);
 		text = text.replaceAll(TRIGGER.pattern(), "");
-		System.out.println("text after trigger : " + text);
+//		System.out.println("text after trigger : " + text);
 		
 		String condition = extractMatch(TRIGGER_CONDITION, text);
 		if(condition != null) {
 			ability.setCondition(condition);
 			text = text.replaceAll(TRIGGER_CONDITION.pattern(), "");
-			System.out.println("text after condition : " + text);
+//			System.out.println("text after condition : " + text);
 		}
 		
 		String effect = extractMatch(EFFECT, text);
 		if(effect == null){
 			return null;
 		}
+		text = text.replaceAll(EFFECT.pattern(), "");
 		String unlessCondition = extractMatch(UNLESS_CONDITION, effect);
 		if(unlessCondition != null){
-			
+			ability.setUnless(unlessCondition);
+			effect = effect.replaceAll(UNLESS_CONDITION.pattern(), "").replaceAll("unless", "").trim();
 		}
 		ability.setEffect(effect);
+		ability.setOptional(OPTIONAL_EFFECT.matcher(effect).matches());
 		
-		
-		return null;
+		String sentence;
+		String dependentEffect = null;
+		String additionalText = "";
+		String dependentAdditionalText = "";
+//		System.out.println("text before dealing with sentences : " + text);
+		while((sentence = extractMatch(SENTENCE, text)) != null){
+			System.out.println("Dealing with sentence : " + sentence);
+			if(dependentEffect != null) {
+				dependentAdditionalText += sentence;
+			} else {
+				dependentEffect = extractMatch(DEPENDENT_EFFECT, text);
+				if(dependentEffect != null){
+					dependentEffect = sentence;	// The "if you do" clause isn't the full effect.
+					String dependentUnlessCondition = extractMatch(UNLESS_CONDITION, dependentEffect);
+					if(unlessCondition != null){
+						ability.setDependentUnless(dependentUnlessCondition);
+						dependentEffect = dependentEffect.replaceAll(UNLESS_CONDITION.pattern(), "").replaceAll("unless", "").trim();
+					}
+					ability.setDependentEffect(dependentEffect);
+				} else {
+					additionalText += sentence;
+				}
+			}
+			text = text.replaceAll(SENTENCE.pattern(), "");
+		}
+		return ability;
 	}
 	
 	public static String extractMatch(Pattern pattern, String text){
@@ -100,10 +144,10 @@ public class AbilityParser {
 			return null;
 		}
 		for(AbilityWordDef abilityDef : AbilityWordDef.values()){
-			System.out.println("Checking " + abilityDef + " on remaining text : " + text);
+//			System.out.println("Checking " + abilityDef + " on remaining text : " + text);
 			Matcher matcher = abilityDef.definition.matcher(text);
 			if(matcher.find()){
-				System.out.println("Found match : " + abilityDef);
+//				System.out.println("Found match : " + abilityDef);
 				AbilityWord ability = CatalogMaster.getAbilityWord(abilityDef);
 				return ability;
 			}

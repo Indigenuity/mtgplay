@@ -16,17 +16,17 @@ public class Experiment {
 	public static void runExperiment(){
 		System.out.println("Running experiment");
 		CatalogMaster.buildCatalogs();
-		List<Card> cards = JPA.em().createQuery("from Card c where c.type like '%Creature%'", Card.class).setMaxResults(5).getResultList();
+		List<Card> cards = JPA.em().createQuery("from Card c where c.type not like '%Instant%' and c.type not like '%Sorcery%'", Card.class).setMaxResults(5000).getResultList();
 		System.out.println("cards : " + cards.size());
 		
 		List<WCard> wCards = new ArrayList<WCard>();
 		for(Card card : cards) {
-//			wCards.add(CardParser.parseCard(card));
+			wCards.add(CardParser.parseCard(card));
 		}
 		
 		//Old Fogey 18740
-		Card card = JPA.em().find(Card.class, 3414);
-		CardParser.parseCard(card);
+//		Card card = JPA.em().find(Card.class, 13192);
+//		CardParser.parseCard(card);
 //		
 //		String abilityText = card.getText();
 //		System.out.println("abilityText : " + abilityText);
