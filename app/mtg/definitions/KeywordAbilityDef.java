@@ -1,9 +1,24 @@
-package mtg;
+package mtg.definitions;
 
 import java.util.regex.Pattern;
 
-public enum KeywordAbility {
+public enum KeywordAbilityDef {
 	
+	//**** Order Matters *********//
+	NONBASIC_LANDWALK	("Nonbasic landwalk"),
+	SNOW_PLAINSWALK		("Snow plainswalk"),
+	SNOW_ISLANDWALK		("Snow islandwalk"),
+	SNOW_SWAMPWALK		("Snow swampwalk"),
+	SNOW_MOUNTAINWALK	("Snow mountainwalk"),
+	SNOW_FORESTWALK		("Snow forestwalk"),
+	SNOW_COVERED_PLAINSWALK	("Snow-covered plainswalk"),
+	SNOW_LANDWALK		("Snow landwalk"),
+	MODULAR_SUNBURST	("Modular—Sunburst"),
+	PROTECTION			("Protection from ([^\\n,;]+)", false, true),
+	SPLICE				("Splice onto Arcane[— ]([^\\n,;]+)", false, true),
+	
+	
+	//**** Evergreen ********//
 	DEATHTOUCH			("Deathtouch"),
 	DEFENDER			("Defender"),
 	DOUBLE_STRIKE		("Double Strike"),
@@ -21,6 +36,8 @@ public enum KeywordAbility {
 	REACH				("Reach"),
 	TRAMPLE				("Trample"),
 	VIGILANCE			("Vigilance"),
+	
+	//****** Other *********//
 	ABSORB				("Absorb ([0-9]+)", true),
 	AFFINITY			("Affinity for ([^\\n,;]+)", false, true),
 	AMPLIFY				("Amplify ([0-9]+)", true),
@@ -50,7 +67,7 @@ public enum KeywordAbility {
 	DEVOID				("Devoid"),
 	DEVOUR				("Devour ([0-9]+)", true),
 	DREDGE				("Dredge ([0-9]+)", true),
-	ECHO				("Echo[— ]([^\\n,;]+)", false, true),
+	ECHO				("Echo[— ]*([^\\n,;]*)", false, true),
 	EMERGE				("Emerge[— ]([^\\n,;]+)", false, true),
 	ENTWINE				("Entwine[— ]([^\\n,;]+)", false, true),
 	EPIC				("Epic"),
@@ -98,54 +115,46 @@ public enum KeywordAbility {
 	PERSIST				("Persist"),
 	PHASING				("Phasing"),
 	POISONOUS			("Poisonous ([0-9]+)", true),
-	PROTECTION			("Protection from ([^\\n,;]+)", false, true),
 	PROVOKE				("Provoke"),
 	PROWL				("Prowl[— ]([^\\n,;]+)", false, true),
 	RAMPAGE				("Rampage ([0-9]+)", true),
 	REBOUND				("Rebound"),
 	RECOVER				("Recover[— ]([^\\n,;]+)", false, true),
 	REINFORCE			("Reinforce ([0-9]+)—([^\\n,;]+)", true, true),
-	RENOWN
-	REPLICATE
-	RETRACE
-	RIPPLE
-	SCAVENGE
-	SHADOW
-	SHROUD
-	SKULK
-	SOULBOND
-	SOULSHIFT
-	SPLICE
-	SPLIT_SECOND
-	STORM
-	SUNBURST
-	SURGE
-	SUSPEND
-	TOTEM_ARMOR
-	TRANSFIGURE
-	TRANSMUTE
-	TRIBUTE
-	UNDAUNTED
-	UNDYING
-	UNEARTH
-	UNLEASH
-	VANISHING
-	WITHER
+	RENOWN				("Renown ([0-9]+)", true),
+	REPLICATE			("Replicate[— ]([^\\n,;]+)", false, true),
+	RETRACE				("Retrace"),
+	RIPPLE				("Ripple ([0-9]+)", true),
+	SCAVENGE			("Scavenge[— ]([^\\n,;]+)", false, true),
+	SHADOW				("Shadow"),
+	SHROUD				("Shroud"),
+	SKULK				("Skulk"),
+	SOULBOND			("Soulbond"),
+	SOULSHIFT			("Soulbond ([0-9]+)", true),
+	SPLIT_SECOND		("Split Second"),
+	STORM				("Storm"),
+	SUNBURST			("Sunburst"),
+	SURGE				("Surge[— ]([^\\n,;]+)", false, true),
+	SUSPEND				("Suspend ([0-9]+)—([^\\n,;]+)", true, true),
+	TOTEM_ARMOR			("Totem Armor"),
+	TRANSFIGURE			("Transfigure[— ]([^\\n,;]+)", false, true),
+	TRANSMUTE			("Transmute[— ]([^\\n,;]+)", false, true),
+	TRIBUTE				("Tribute ([0-9]+)", true),
+	UNDAUNTED			("Undaunted"),
+	UNDYING				("Undying"),
+	UNEARTH				("Unearth[— ]([^\\n,;]+)", false, true),
+	UNLEASH				("Unleash"),
+	VANISHING			("Vanishing ([0-9]+)", true),
+	WITHER				("Wither"),
 	
-	LEGENDARY_LANDWALK
-	PLAINSWALK
-	ISLANDWALK
-	SWAMPWALK
-	MOUNTAINWALK
-	FORESTWALK
-	NONBASIC_LANDWALK
-	SNOW_PLAINSWALK
-	SNOW_ISLANDWALK
-	SNOW_SWAMPWALK
-	SNOW_MOUNTAINWALK
-	SNOW_FORESTWALK
-	SNOW_COVERED_PLAINSWALK
-	SNOW_LANDWALK
+	//****** Landwalk Abilities *******//
+	LEGENDARY_LANDWALK	("Legendary Landwalk"),
+	PLAINSWALK			("Plainswalk"),
+	ISLANDWALK			("Islandwalk"),
+	SWAMPWALK			("Swampwalk"),
+	MOUNTAINWALK		("Mountainwalk"),
+	FORESTWALK			("Forestwalk"),
+	
 	;
 	
 	
@@ -153,22 +162,26 @@ public enum KeywordAbility {
 	public final boolean hasSubject;
 	public final Pattern definition;
 	
-	private KeywordAbility(String regex){
-		this.definition = Pattern.compile(regex);
+	private KeywordAbilityDef(String regex){
+		this.definition = compilePattern(regex);
 		this.hasAmount = false;
 		this.hasSubject = false;
 	}
 	
-	private KeywordAbility(String regex, boolean hasAmount){
-		this.definition = Pattern.compile(regex);
+	private KeywordAbilityDef(String regex, boolean hasAmount){
+		this.definition = compilePattern(regex);
 		this.hasAmount = hasAmount;
 		this.hasSubject = false;
 	}
 	
-	private KeywordAbility(String regex, boolean hasAmount, boolean hasSubject){
-		this.definition = Pattern.compile(regex);
+	private KeywordAbilityDef(String regex, boolean hasAmount, boolean hasSubject){
+		this.definition = compilePattern(regex);
 		this.hasAmount = hasAmount;
 		this.hasSubject = hasSubject;
+	}
+	
+	private Pattern compilePattern(String regex){
+		return Pattern.compile(regex + "[,;]*", Pattern.CASE_INSENSITIVE);
 	}
 
 }
