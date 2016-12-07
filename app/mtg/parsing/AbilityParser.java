@@ -10,7 +10,10 @@ import model.catalog.AbilityWord;
 import model.catalog.KeywordAbility;
 import mtg.catalog.CatalogMaster;
 import mtg.definitions.AbilityWordDef;
+import mtg.definitions.CostFlag;
+import mtg.definitions.EffectFlag;
 import mtg.definitions.KeywordAbilityDef;
+import mtg.definitions.ManaCostType;
 
 public class AbilityParser {
 	
@@ -29,7 +32,84 @@ public class AbilityParser {
 	
 	private static final Pattern ACTIVATED_ABILITY = Pattern.compile("([^:]+):(.+)");
 	
+	private static final Pattern MANA_COST_UNIT = Pattern.compile("\\{([^\\}]+)\\}");
 	
+	public static ManaCost getManaCost(String text) {
+		ManaCost cost = new ManaCost();
+		
+		String[] manaUnits = text.split(MANA_COST_UNIT.pattern());
+		float cmc = 0;
+		float typed = 0;
+		for(String manaUnit : manaUnits) {
+			ManaCostType found = null;
+			float amount = 1;
+			for(ManaCostType type : ManaCostType.values()){
+				Matcher matcher = type.definition.matcher(manaUnit);
+				if(matcher.find()){
+					found = type;
+					if(matcher.groupCount() > 0){
+						amount =  Float.parseFloat(matcher.group(1));
+					}
+					break;
+				}
+			}
+			if(found == null){
+				throw new IllegalStateException("Found unparsed mana unit");
+			}
+			if(found == ManaCostType.X){
+				cost.setHasX(true);
+				amount = 0;
+			}
+			cost.setWhite(found.isWhite);
+			cost.setBlue(found.isBlue);
+			cost.setBlack(found.isBlack);
+			cost.setRed(found.isRed);
+			cost.setGreen(found.isGreen);
+			cost.setColorless(found.isColorless);
+			
+			if(found.isTyped) {
+				typed++;
+			}
+			cmc += amount;
+			
+		}
+		cost.setCmc(cmc);
+		cost.setTyped(typed);
+		return cost;
+	}
+	
+	public static List<EffectFlag> getEffectFlags(String text) {
+		Objects.requireNonNull(text);
+		List<EffectFlag> effectFlags = new ArrayList<EffectFlag>();
+		for(EffectFlag flag : EffectFlag.values()){
+			Matcher matcher = flag.definition.matcher(text);
+			if(matcher.find()){
+				effectFlags.add(flag);
+			}
+		}
+		return effectFlags;
+	}
+
+	public static List<CostFlag> getCostFlags(String text) {
+		Objects.requireNonNull(text);
+		String[] costs = text.split(",");
+		List<CostFlag> costFlags = new ArrayList<CostFlag>();
+		for(String cost : costs) {
+			CostFlag found = null;
+			for(CostFlag flag : CostFlag.values()){
+				Matcher matcher = flag.definition.matcher(cost);
+				if(matcher.find()){
+					found = flag;
+					break;
+				}
+			}	
+			if(found == null){
+				found = CostFlag.OTHER_COST;
+			}
+			costFlags.add(found);
+		}
+		return costFlags;
+	}
 	
 	public static ActivatedAbility getActivatedAbility(String text){
 //		System.out.println("Parsing activated ability : " + text);
