@@ -1,0 +1,18 @@
+numCosts,numEffects,isGreen,typed,isBlue,isBlack,isColorless,cmc,isWhite,isRed,hasX,typedRatio,singleuse_isGreen,singleuse_typed,singleuse_isBlue,singleuse_isBlack,singleuse_isColorless,singleuse_cmc,singleuse_isWhite,singleuse_isRed,singleuse_hasX,singleuse_typedRatio,tripleuse_cmc,tripleuse_typed,tripleuse_typedRatio,abilityKey,TAP,GRANTS_ABILITY,keyword_keywordAbilityId,keyword_functionsInGraveyard,keyword_easesCosts,keyword_hasCost,keyword_isAdditionalCost,keyword_functionsInHand,keyword_isActivated,keyword_modifiedResolution,keyword_isAlternateCost,keyword_isEvasion,keyword_reducesCost,keyword_isContinuous,keyword_hasTargets,keyword_functionsInBattlefield,keyword_isTriggered,DESTROY_TARGET,LANDS_YOU_CONTROL,PLUS_PLUS,OTHER_COST,WHEN_ENTERS,GAIN_LIFE,ADD_MANA,ENTERS_TAPPED,PAY_ENERGY
+0,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,6.0,false,false,false,0.16666667,6.0,1.0,0.16666667,Skaab Goliath1,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,2.0,false,false,false,0.5,2.0,1.0,0.5,Amoeboid Changeling1,true,true,,,,,,,,,,,,,,,,,,,,,,,,
+1,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,2.0,false,false,false,0.5,2.0,1.0,0.5,Amoeboid Changeling2,true,,,,,,,,,,,,,,,,,,,,,,,,,
+"",,,,,,,,,,,,,,,,,,,,,,,,,Amoeboid Changeling3,,,45,true,null,null,null,true,null,null,null,null,null,true,null,true,null,,,,,,,,,
+1,2,false,1.0,false,false,false,2.0,false,true,false,0.5,false,3.0,false,false,false,7.0,false,true,false,0.42857143,11.0,5.0,0.45454547,Jalum Grifter1,true,,,,,,,,,,,,,,,,,true,true,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Sokenzan2,,,,,,,,,,,,,,,,,,,,true,,,,,,
+"",,,,,,,,,,,,,,,,,,,,,,,,,Skaab Goliath2,,,27,null,null,null,null,null,null,null,null,true,null,true,null,true,null,,,,,,,,,
+1,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Sokenzan1,,,,,,,,,,,,,,,,,,,,,true,,,,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Kazandu Refuge1,,,,,,,,,,,,,,,,,,,,,,true,true,,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Kazandu Refuge2,true,,,,,,,,,,,,,,,,,,,,,,,true,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Kazandu Refuge3,,,,,,,,,,,,,,,,,,,,,,,,,true,
+"",,,,,,,,,,,,,,,,,,,,,,,,,Cranial Plating3,,,16,null,null,true,null,null,null,null,null,null,null,null,true,true,null,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,2.0,false,false,false,0.0,2.0,0.0,0.0,Cranial Plating2,,,,,,,,,,,,,,,,,,,,true,,,,,,
+0,0,false,2.0,false,true,false,2.0,false,false,false,1.0,false,2.0,false,true,false,4.0,false,false,false,0.5,8.0,6.0,0.75,Cranial Plating1,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,1.0,false,false,false,1.0,1.0,1.0,1.0,Minister of Inquiries2,true,,,,,,,,,,,,,,,,,,,,,,,,,true
+1,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,1.0,false,false,false,1.0,1.0,1.0,1.0,Minister of Inquiries1,,,,,,,,,,,,,,,,,,,,,,true,,,,
+1,0,false,0.0,false,false,false,1.0,false,false,false,0.0,false,1.0,true,false,false,4.0,false,false,false,0.25,6.0,1.0,0.16666667,Quiet Contemplation1,,,,,,,,,,,,,,,,,,,,,true,,,,,

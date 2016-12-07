@@ -1,0 +1,20 @@
+numCosts,numEffects,isGreen,typed,isBlue,isBlack,isColorless,cmc,isWhite,isRed,hasX,typedRatio,singleuse_isGreen,singleuse_typed,singleuse_isBlue,singleuse_isBlack,singleuse_isColorless,singleuse_cmc,singleuse_isWhite,singleuse_isRed,singleuse_hasX,singleuse_typedRatio,tripleuse_cmc,tripleuse_typed,tripleuse_typedRatio,abilityKey,PLUS_PLUS,WHENEVER_ENTERS,DEAL_DAMAGE,AT_UPKEEP,keyword_keywordAbilityId,keyword_functionsInGraveyard,keyword_easesCosts,keyword_hasCost,keyword_isAdditionalCost,keyword_functionsInHand,keyword_isActivated,keyword_modifiedResolution,keyword_isAlternateCost,keyword_isEvasion,keyword_reducesCost,keyword_isContinuous,keyword_hasTargets,keyword_functionsInBattlefield,keyword_isTriggered,GRANTS_ABILITY,DEALS_DAMAGE,EXILE_CARD,CREATES_TOKEN,REGENERATE,WHENEVER_ATTACKS,PLUSX_COUNTERS
+0,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,4.0,false,false,false,0.25,4.0,1.0,0.25,Binding Grasp2,,,,,,,,,,,,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,4.0,false,false,false,0.25,4.0,1.0,0.25,Binding Grasp3,true,,,,,,,,,,,,,,,,,,,,,,,,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,false,false,false,4.0,false,true,false,0.25,4.0,1.0,0.25,Pandemonium1,,true,true,,,,,,,,,,,,,,,,,,,,,,,
+0,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,false,false,false,1.0,true,false,false,1.0,1.0,1.0,1.0,Animate Wall1,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,true,false,false,4.0,false,false,false,0.25,4.0,1.0,0.25,Binding Grasp1,,,,true,,,,,,,,,,,,,,,,,,,,,,
+"",,,,,,,,,,,,,,,,,,,,,,,,,Animate Wall2,,,,,15,null,null,null,null,null,null,null,null,null,null,true,true,true,null,,,,,,,
+"",,,,,,,,,,,,,,,,,,,,,,,,,Binding Grasp4,,,,,15,null,null,null,null,null,null,null,null,null,null,true,true,true,null,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,2.0,false,false,false,8.0,false,true,false,0.25,8.0,2.0,0.25,Scrambleverse1,,,,,,,,,,,,,,,,,,,,true,,,,,,
+0,1,false,0.0,false,false,false,2.0,false,false,false,0.0,false,0.0,false,false,false,6.0,false,false,false,0.0,10.0,0.0,0.0,Masticore2,,,,,,,,,,,,,,,,,,,,,true,,,,,
+0,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,1.0,false,false,false,0.0,1.0,0.0,0.0,Brass Man2,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,0,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,4.0,false,false,false,0.0,4.0,0.0,0.0,Masticore1,,,,true,,,,,,,,,,,,,,,,,,,,,,
+1,0,false,0.0,false,false,false,1.0,false,false,false,0.0,false,0.0,false,false,false,2.0,false,false,false,0.0,4.0,0.0,0.0,Brass Man1,,,,true,,,,,,,,,,,,,,,,,,,,,,
+1,1,false,0.0,false,false,false,1.0,false,false,false,0.0,true,2.0,false,false,false,3.0,false,false,false,0.6666667,5.0,2.0,0.4,Night Soil1,,,,,,,,,,,,,,,,,,,,,,true,true,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,false,false,false,1.0,false,true,false,1.0,1.0,1.0,1.0,Blaze1,,,,,,,,,,,,,,,,,,,,,true,,,,,
+0,1,false,0.0,false,false,false,2.0,false,false,false,0.0,false,0.0,false,false,false,6.0,false,false,false,0.0,10.0,0.0,0.0,Masticore3,,,,,,,,,,,,,,,,,,,,,,,,true,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,2.0,false,false,false,5.0,true,false,false,0.4,5.0,2.0,0.4,Herald of War1,,,,,,,,,,,,,,,,,,,,,,,,,true,true
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,2.0,false,false,false,5.0,true,false,false,0.4,5.0,2.0,0.4,Herald of War2,,,,,,,,,,,,,,,,,,,,,,,,,,true
+"",,,,,,,,,,,,,,,,,,,,,,,,,Herald of War3,,,,,19,null,null,null,null,null,null,null,null,true,null,true,null,true,null,,,,,,,
+0,1,false,0.0,false,false,false,2.0,false,false,false,0.0,false,0.0,false,false,false,6.0,false,false,false,0.0,10.0,0.0,0.0,Rocket Launcher1,,,,,,,,,,,,,,,,,,,,,true,,,,,

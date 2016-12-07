@@ -1,0 +1,15 @@
+numCosts,numEffects,isGreen,typed,isBlue,isBlack,isColorless,cmc,isWhite,isRed,hasX,typedRatio,singleuse_isGreen,singleuse_typed,singleuse_isBlue,singleuse_isBlack,singleuse_isColorless,singleuse_cmc,singleuse_isWhite,singleuse_isRed,singleuse_hasX,singleuse_typedRatio,tripleuse_cmc,tripleuse_typed,tripleuse_typedRatio,abilityKey,ENTERS_TAPPED,TAP,ADD_MANA,OTHER_COST,DESTROY_ALL,PLUS_PLUS,GRANTS_ABILITY,DEALS_DAMAGE,SACRIFICE_SELF,SEARCH,keyword_keywordAbilityId,keyword_functionsInGraveyard,keyword_easesCosts,keyword_hasCost,keyword_isAdditionalCost,keyword_functionsInHand,keyword_isActivated,keyword_modifiedResolution,keyword_isAlternateCost,keyword_isEvasion,keyword_reducesCost,keyword_isContinuous,keyword_hasTargets,keyword_functionsInBattlefield,keyword_isTriggered
+0,0,false,0.0,false,false,false,0.0,false,false,false,0.0,true,1.0,false,false,false,3.0,false,false,false,0.33333334,3.0,1.0,0.33333334,Noble Quarry1,,,,,,,,,,,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Vivid Grove3,true,,,,,,,,,,,,,,,,,,,,,,,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Vivid Grove1,,true,true,,,,,,,,,,,,,,,,,,,,,,
+2,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Vivid Grove2,,true,true,true,,,,,,,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,false,false,false,4.0,false,true,false,0.25,4.0,1.0,0.25,Flashfires1,,,,,true,,,,,,,,,,,,,,,,,,,,
+1,2,false,1.0,true,false,false,8.0,false,false,false,0.125,false,2.0,true,false,false,13.0,false,false,false,0.15384616,29.0,4.0,0.13793103,Glintwing Invoker1,,,,true,,true,true,,,,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,false,false,false,2.0,false,true,false,0.5,2.0,1.0,0.5,Lash Out1,,,,,,,,true,,,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,1.0,false,false,false,4.0,true,false,false,0.25,4.0,1.0,0.25,Armageddon1,,,,,true,,,,,,,,,,,,,,,,,,,,
+1,1,false,1.0,false,false,false,1.0,false,true,false,1.0,false,2.0,false,false,false,4.0,false,true,false,0.5,6.0,4.0,0.6666667,Captive Flame1,,,,true,,true,,,,,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Krosan Verge3,true,,,,,,,,,,,,,,,,,,,,,,,,
+1,1,false,0.0,false,false,false,0.0,false,false,false,0.0,false,0.0,false,false,false,0.0,false,false,false,0.0,0.0,0.0,0.0,Krosan Verge1,,true,true,,,,,,,,,,,,,,,,,,,,,,
+3,1,false,0.0,false,false,false,2.0,false,false,false,0.0,false,0.0,false,false,false,2.0,false,false,false,0.0,6.0,0.0,0.0,Krosan Verge2,,true,,true,,,,,true,true,,,,,,,,,,,,,,,
+0,1,false,0.0,false,false,false,0.0,false,false,false,0.0,true,1.0,false,false,false,3.0,false,false,false,0.33333334,3.0,1.0,0.33333334,Noble Quarry2,,,,,,true,,,,,,,,,,,,,,,,,,,
+"",,,,,,,,,,,,,,,,,,,,,,,,,Noble Quarry3,,,,,,,,,,,39,null,null,null,null,true,null,null,true,null,null,true,true,null,null

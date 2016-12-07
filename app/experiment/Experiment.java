@@ -20,7 +20,7 @@ public class Experiment {
 	public static void runExperiment() throws IOException{
 		System.out.println("Running experiment");
 //		CatalogMaster.buildCatalogs();
-		List<Card> cards = JPA.em().createQuery("from Card c where printings___ not like '%Un-Sets%'", Card.class)
+		List<Card> cards = JPA.em().createQuery("from Card c where legalities___ not like '%Un-Sets%'", Card.class)
 //				.setMaxResults(10)
 //				.setFirstResult(1)
 				.getResultList();
