@@ -8,6 +8,10 @@ import java.util.Map;
 import model.Card;
 import model.catalog.AbilityWord;
 import model.catalog.KeywordAbility;
+import mtg.parsing.Ability;
+import mtg.parsing.ActivatedAbility;
+import mtg.parsing.ManaCost;
+import mtg.parsing.TriggeredAbility;
 
 public class WCard {
 	
@@ -20,6 +24,12 @@ public class WCard {
 	
 	private List<KeywordAbility> keywordAbilities = new ArrayList<KeywordAbility>();
 	private List<AbilityWord> abilityWords = new ArrayList<AbilityWord>();
+	private List<TriggeredAbility> triggeredAbilities = new ArrayList<TriggeredAbility>();
+	private List<ActivatedAbility> activatedAbilities = new ArrayList<ActivatedAbility>();
+	private List<Ability> abilities = new ArrayList<Ability>();
+	
+	private ManaCost manaCost;
+	private Ability additionalCost;
 	
 	public WCard(){};
 	public WCard(Card card) {
@@ -66,6 +76,36 @@ public class WCard {
 	}
 	public void setCard(Card card) {
 		this.card = card;
+	}
+	public List<TriggeredAbility> getTriggeredAbilities() {
+		return triggeredAbilities;
+	}
+	public void setTriggeredAbilities(List<TriggeredAbility> triggeredAbilities) {
+		this.triggeredAbilities = triggeredAbilities;
+	}
+	public List<ActivatedAbility> getActivatedAbilities() {
+		return activatedAbilities;
+	}
+	public void setActivatedAbilities(List<ActivatedAbility> activatedAbilities) {
+		this.activatedAbilities = activatedAbilities;
+	}
+	public List<Ability> getAbilities() {
+		return abilities;
+	}
+	public void setAbilities(List<Ability> abilities) {
+		this.abilities = abilities;
+	}
+	public Ability getAdditionalCost() {
+		return additionalCost;
+	}
+	public void setAdditionalCost(Ability additionalCost) {
+		this.additionalCost = additionalCost;
+	}
+	public ManaCost getManaCost() {
+		return manaCost;
+	}
+	public void setManaCost(ManaCost manaCost) {
+		this.manaCost = manaCost;
 	}
 	
 	

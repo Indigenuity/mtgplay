@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 import model.catalog.AbilityWord;
 import model.catalog.KeywordAbility;
 import mtg.catalog.CatalogMaster;
@@ -32,12 +34,22 @@ public class AbilityParser {
 	
 	private static final Pattern ACTIVATED_ABILITY = Pattern.compile("([^:]+):(.+)");
 	
-	private static final Pattern MANA_COST_UNIT = Pattern.compile("\\{([^\\}]+)\\}");
+	private static final Pattern MANA_COST_UNIT = Pattern.compile("\\{([^\\}TEQ]+)\\}");
+	
+	private static final Pattern ADDITIONAL_COST = Pattern.compile("as an additional cost to cast[^,]+,(.+)");
 	
 	public static ManaCost getManaCost(String text) {
+//		System.out.println("parsing mana cost : " + text);
 		ManaCost cost = new ManaCost();
+		if(StringUtils.isEmpty(text)){
+			return cost;
+		}
+		List<String> manaUnits = new ArrayList<String>();
+		Matcher manaMatcher = MANA_COST_UNIT.matcher(text);
+		while(manaMatcher.find()){
+			manaUnits.add(manaMatcher.group(1));
+		}
 		
-		String[] manaUnits = text.split(MANA_COST_UNIT.pattern());
 		float cmc = 0;
 		float typed = 0;
 		for(String manaUnit : manaUnits) {
@@ -97,6 +109,9 @@ public class AbilityParser {
 		for(String cost : costs) {
 			CostFlag found = null;
 			for(CostFlag flag : CostFlag.values()){
+				if(flag.definition == null){
+					continue;
+				}
 				Matcher matcher = flag.definition.matcher(cost);
 				if(matcher.find()){
 					found = flag;
@@ -104,11 +119,32 @@ public class AbilityParser {
 				}
 			}	
 			if(found == null){
-				found = CostFlag.OTHER_COST;
+				Matcher matcher = MANA_COST_UNIT.matcher(cost);	
+				if(!matcher.find()){								//Don't add an unknown cost if it's a mana cost
+					costFlags.add(CostFlag.OTHER_COST);
+				}
+			}else{
+				costFlags.add(found);	
 			}
-			costFlags.add(found);
 		}
 		return costFlags;
+	}
+	
+	public static Ability getGenericAbility(String text) {
+		Ability ability = new Ability();
+		ability.setEffectFlags(getEffectFlags(text));
+		return ability;
+	}
+	
+	public static Ability getAdditionalCost(String text){
+		Ability ability = new Ability();
+		Matcher matcher = ADDITIONAL_COST.matcher(text);
+		if(matcher.find()){
+			ability.setCostFlags(getCostFlags(matcher.group(1)));
+			ability.setManaCost(getManaCost(matcher.group(1)));
+			return ability;
+		}
+		return null;
 	}
 	
 	public static ActivatedAbility getActivatedAbility(String text){
@@ -125,6 +161,9 @@ public class AbilityParser {
 			}
 			ability.setCost(cost);
 			ability.setEffect(effect);
+			ability.setCostFlags(getCostFlags(cost));
+			ability.setEffectFlags(getEffectFlags(effect));
+			ability.setManaCost(getManaCost(cost));
 			return ability;
 		}
 		return null;
@@ -186,6 +225,24 @@ public class AbilityParser {
 			}
 			text = text.replaceAll(SENTENCE.pattern(), "");
 		}
+		ability.setAdditionalText(additionalText);
+		ability.setDependentAdditionalText(dependentAdditionalText);
+		
+		List<CostFlag> costFlags = getCostFlags(trigger);
+		List<EffectFlag> effectFlags = new ArrayList<EffectFlag>();
+		if(ability.getOptional() && ability.getDependentEffect() != null){
+			costFlags.addAll(getCostFlags(effect));		//Add optional costs like "you may pay {2}"
+			ability.setManaCost(getManaCost(effect));
+		} else{
+			effectFlags.addAll(getEffectFlags(effect));
+		}
+		
+		if(dependentEffect != null){
+			effectFlags.addAll(getEffectFlags(dependentEffect));
+		}
+		ability.setCostFlags(costFlags);
+		ability.setEffectFlags(effectFlags);
+		
 		return ability;
 	}
 	

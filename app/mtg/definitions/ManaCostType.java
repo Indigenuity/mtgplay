@@ -38,6 +38,8 @@ public enum ManaCostType {
 	SELESNYA 	("G/W", true, true, false, false, false, true, false),
 	SIMIC 		("G/U", true, false, true, false, false, true, false),
 	
+	SNOW		("S", true, false, false, false, false, false, false),
+	
 	;
 	
 	public final Pattern definition;

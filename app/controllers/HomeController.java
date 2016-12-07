@@ -23,7 +23,7 @@ public class HomeController extends Controller {
     }
     
     @Transactional 
-    public Result experiment() {
+    public Result experiment() throws Exception {
     	Experiment.runExperiment();
     	return ok();
     }

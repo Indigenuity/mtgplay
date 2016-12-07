@@ -7,6 +7,22 @@ public enum EffectFlag {
 	PLUSX_COUNTERS				("\\+1/\\+1 counter"),
 	MINUSX_COUNTERS				("-1/-1 counter"),
 	
+	CREATES_TOKEN				(" token"), 	//The space precludes phrases like 'target nontoken'
+	EXTRA_TURN					("extra turn"),
+	
+	MODAL						("•"),
+	SCRY						("Scry [0-9X]"),
+	FIGHT						("Fights"),
+	MANIFEST					("Manifest"),
+	PROLIFERATE					("Proliferate"),
+	POPULATE					("Populate"),
+	REGENERATE					("Regenerate "),			//Space is important to preclude "regenerated"
+	INVESTIGATE					("Investigate"),
+	SEARCH						("Search"),
+	FATESEAL					("Fateseal"),
+	
+	COUNTERSPELL				("Counter( target|that|each)"),
+	
 	PLUS_MINUS					("[+][a-zA-Z0-9*]{1,2}/[-][a-zA-Z0-9*]{1,2}(?! counter)"),
 	PLUS_PLUS					("[+][a-zA-Z0-9*]{1,2}/[+][a-zA-Z0-9*]{1,2}(?! counter)"),
 	MINUS_PLUS					("[-][a-zA-Z0-9*]{1,2}/[+][a-zA-Z0-9*]{1,2}(?! counter)"),
@@ -32,13 +48,16 @@ public enum EffectFlag {
 	RETURN_TARGET				("return( another)? target"),
 	RETURN_ALL					("return all"),
 	
-	DEALS_DAMAGE				("deals ([a-zA-Z0-9*]{1,2}) damage"),			//deals 1 damage
-	DEAL_DAMAGE					("deal ([a-zA-Z0-9*]{1,2}) damage"),
-	PREVENT_DAMAGE				("prevent (the next|all|that damage)"),
+	TAP_TARGET					("tap target"),
+	UNTAP_TARGET				("untap target"),
 	
-	GAIN_LIFE					("gain ([a-zA-Z0-9*]{1,2}) life"), 
+	DEALS_DAMAGE				("deals( [a-zA-Z0-9*]{1,2})? damage"),			//deals 1 damage OR each creature deals damage equal to its power
+	DEAL_DAMAGE					("deal( [a-zA-Z0-9*]{1,2})? damage"),			//you may have that creature deal damage equal to its power
+	PREVENT_DAMAGE				("prevent( the next|all|that) damage"),			//prevent the next 3 damage that would be dealt to that creature
 	
-	DRAW_CARD					("draw (a|[0-9X]+) card"),
+	GAIN_LIFE					("gain( [a-zA-Z0-9*]{1,2}) life"), 
+	
+	DRAW_CARD					("draw( a|[0-9X]+) card"),
 	ADD_MANA					("Add( [^m]+)? mana"),
 	
 	CREATURES_YOU_CONTROL		("creatures you control"),
@@ -47,6 +66,10 @@ public enum EffectFlag {
 	ARTIFACTS_YOU_CONTROL		("artifacts you control"),
 	LANDS_YOU_CONTROL			("lands you control"),
 	
+	GRANTS_ABILITY				("gains.+(?!life[ \\.])"),		//Target creature gains lifelink NOT that player gains 
+	
+	DOES_NOT_UNTAP				("doesn't untap during it's controller untap"),
+	SKIP_NEXT_UNTAP				("doesn't untap during it's controller next"),
 	
 	
 	

@@ -25,8 +25,24 @@ public class ManaCost {
 	public void setTypedRatio(){
 		if(cmc != 0){
 			typedRatio = typed/cmc;
+		}else {
+			typedRatio = 0;
 		}
-		typedRatio = 0;
+	}
+	
+	public static ManaCost combine(ManaCost first, ManaCost second) {
+		ManaCost newCost = new ManaCost();
+		newCost.setWhite(first.isWhite() || second.isWhite());
+		newCost.setBlue(first.isBlue() || second.isBlue());
+		newCost.setBlack(first.isBlack() || second.isBlack());
+		newCost.setRed(first.isRed() || second.isRed());
+		newCost.setGreen(first.isGreen() || second.isGreen());
+		newCost.setColorless(first.isColorless() || second.isColorless());
+		newCost.setCmc(first.getCmc() + second.getCmc());
+		newCost.setTyped(first.getTyped() + second.getTyped());
+		newCost.getCostMap().putAll(first.getCostMap());
+		newCost.getCostMap().putAll(second.getCostMap());
+		return newCost;
 	}
 
 	public Map<ManaCostType, Integer> getCostMap() {
@@ -44,6 +60,7 @@ public class ManaCost {
 	public boolean isWhite() {
 		return isWhite;
 	}
+	
 	public void setWhite(boolean isWhite) {
 		this.isWhite = isWhite;
 	}
@@ -104,6 +121,27 @@ public class ManaCost {
 		this.typedRatio = typedRatio;
 	}
 
+	
+	
+	//******* for BeanUtils..... blah
+	public boolean isIsWhite(){
+		return isWhite;
+	}
+	public boolean isIsBlue() {
+		return isBlue;
+	}
+	public boolean isIsRed() {
+		return isRed;
+	}
+	public boolean isIsGreen() {
+		return isGreen;
+	}
+	public boolean isIsColorless() {
+		return isColorless;
+	}
+	public boolean isIsBlack() {
+		return isBlack;
+	}
 	
 	
 	

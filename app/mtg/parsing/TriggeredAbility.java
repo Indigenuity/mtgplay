@@ -1,6 +1,8 @@
 package mtg.parsing;
 
-public class TriggeredAbility {
+
+
+public class TriggeredAbility extends Ability {
 	
 	private String rawText;
 
@@ -20,7 +22,6 @@ public class TriggeredAbility {
 	private String dependentUnless;			//[trigger],[effect]. [dependentEffect] unless that player pays 2 life.
 	private Boolean dependentOptional;		//[trigger],[effect]. If you do, you may draw up to X cards.
 	private String dependentAdditionalText;	//[trigger],[effect]. [dependentEffect]. If a creature dealt damage this way would die this turn, exile it instead.
-	
 	
 	
 	public String getTrigger() {
@@ -95,7 +96,6 @@ public class TriggeredAbility {
 	public void setDependentOptional(Boolean dependentOptional) {
 		this.dependentOptional = dependentOptional;
 	}
-
 	//These aren't truly optional.  The effect happens, these just specify part of the effect.
 //	private Boolean partialOptional;			//[trigger], copy that spell.  You may choose new targets for that spell.
 //	private Boolean dependentPartialOptional;	//[trigger],[effect]. [dependentEffect
