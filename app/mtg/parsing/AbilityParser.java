@@ -206,7 +206,6 @@ public class AbilityParser {
 		String dependentAdditionalText = "";
 //		System.out.println("text before dealing with sentences : " + text);
 		while((sentence = extractMatch(SENTENCE, text)) != null){
-			System.out.println("Dealing with sentence : " + sentence);
 			if(dependentEffect != null) {
 				dependentAdditionalText += sentence;
 			} else {

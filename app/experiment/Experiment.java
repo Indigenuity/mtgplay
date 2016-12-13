@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import final4135.Parser;
 import model.Card;
 import model.catalog.KeywordAbility;
 import model.warehouse.WCard;
@@ -17,27 +18,35 @@ import reports.ReportFactory;
 
 public class Experiment {
 
-	public static void runExperiment() throws IOException{
+	public static void runExperiment() throws Exception{
 		System.out.println("Running experiment");
+		
+//		Parser.readAccess();
+		Parser.removeQueries();
+		
 //		CatalogMaster.buildCatalogs();
-		List<Card> cards = JPA.em().createQuery("from Card c where legalities___ not like '%Un-Sets%'", Card.class)
-//				.setMaxResults(10)
-//				.setFirstResult(1)
-				.getResultList();
-		System.out.println("cards : " + cards.size());
-		
-		List<WCard> wCards = new ArrayList<WCard>();
-		for(Card card : cards) {
-			wCards.add(CardParser.parseCard(card));
-		}
-		
-		Report totalReport = new Report();
-		for(WCard wCard : wCards) {
-			Report report = CardParser.reportCardAbilities(wCard);
-			totalReport = ReportFactory.combine(totalReport, report);
-		}
-		
-		CSVGenerator.printReport(totalReport);
+//		List<Card> cards = JPA.em().createQuery("from Card c where legalities___ not like '%Un-Sets%'", Card.class)
+////				.setMaxResults(10)
+////				.setFirstResult(1)
+//				.getResultList();
+//		System.out.println("cards : " + cards.size());
+//		
+//		List<WCard> wCards = new ArrayList<WCard>();
+//		int count = 0;
+//		for(Card card : cards) {
+//			wCards.add(CardParser.parseCard(card));
+//			if(count++ %100 == 0){
+//				System.out.println("count : " + count);
+//			}
+//		}
+//		
+//		Report totalReport = new Report();
+//		for(WCard wCard : wCards) {
+//			Report report = CardParser.reportCardAbilities(wCard);
+//			totalReport = ReportFactory.combine(totalReport, report);
+//		}
+//		
+//		CSVGenerator.printReport(totalReport);
 		
 		
 		

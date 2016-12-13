@@ -15,7 +15,7 @@ import reports.ReportRow;
 public class CardParser {
 
 	public static WCard parseCard(Card card) {
-		System.out.println("Parsing card : " + card.getCardName());
+//		System.out.println("Parsing card : " + card.getCardName());
 		WCard wCard = new WCard(card);
 		
 		if(card.getText() == null) {
@@ -112,28 +112,28 @@ public class CardParser {
 	}
 	
 	public static void parseParagraph(WCard wCard, String paragraph){
-		System.out.println("Parsing Paragraph : " + paragraph);
+//		System.out.println("Parsing Paragraph : " + paragraph);
 		paragraph = removeReminderText(paragraph);
 		paragraph = replaceReferences(wCard, paragraph);
 		
 		List<KeywordAbility> keywordAbilities = AbilityParser.getKeywordAbilities(paragraph);
 		if(keywordAbilities != null){
 			wCard.getKeywordAbilities().addAll(keywordAbilities);
-			System.out.println("keywordAbilities : " + keywordAbilities);
+//			System.out.println("keywordAbilities : " + keywordAbilities);
 			return;
 		}
 		
 		List<AbilityWord> abilityWords = AbilityParser.getAbilityWords(paragraph);
 		if(abilityWords != null){
 			wCard.getAbilityWords().addAll(abilityWords);
-			System.out.println("abilitywords : " + abilityWords);
+//			System.out.println("abilitywords : " + abilityWords);
 			return;
 		}
 		
 		TriggeredAbility triggeredAbility = AbilityParser.getTriggeredAbility(paragraph);
 		
 		if(triggeredAbility != null){
-			System.out.println("TriggeredAbility : " + triggeredAbility);
+//			System.out.println("TriggeredAbility : " + triggeredAbility);
 //			System.out.println("Trigger : " + triggeredAbility.getTrigger());
 //			System.out.println("condition: " + triggeredAbility.getCondition());
 //			System.out.println("effect: " + triggeredAbility.getEffect());
@@ -149,7 +149,7 @@ public class CardParser {
 		
 		ActivatedAbility activatedAbility = AbilityParser.getActivatedAbility(paragraph);
 		if(activatedAbility != null){
-			System.out.println("activatedAbility : " + activatedAbility);
+//			System.out.println("activatedAbility : " + activatedAbility);
 //			System.out.println("cost : " + activatedAbility.getCost());
 //			System.out.println("effect: " + activatedAbility.getEffect());
 			wCard.getActivatedAbilities().add(activatedAbility);
@@ -159,12 +159,12 @@ public class CardParser {
 		Ability additionalCost = AbilityParser.getAdditionalCost(paragraph);
 		if(additionalCost != null){
 			wCard.setAdditionalCost(additionalCost);
-			System.out.println("additionalCost : " + additionalCost);
+//			System.out.println("additionalCost : " + additionalCost);
 			return;
 		}
 		
 		Ability continuousEffect = AbilityParser.getGenericAbility(paragraph);
-		System.out.println("************* Continuous Effect : " + continuousEffect);
+//		System.out.println("************* Continuous Effect : " + continuousEffect);
 		wCard.getAbilities().add(continuousEffect);
 		return;
 		
