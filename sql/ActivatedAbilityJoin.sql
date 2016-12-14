@@ -1,3 +1,5 @@
+create or replace view activatedabilityjoin as
+
 SELECT aa.activatedabilityid,
 	aa.cost,
 	aa.effect,

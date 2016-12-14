@@ -1,3 +1,5 @@
+create or replace view GenericAbilityJoin as
+
 SELECT ga.*,
     aw.abilitydef, 
     GROUP_CONCAT(tacf.costFlags SEPARATOR ', ') as costFlags, 

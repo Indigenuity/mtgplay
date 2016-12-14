@@ -1,3 +1,5 @@
+create or replace view TriggeredAbilityJoin as
+
 SELECT ta.*,
     aw.abilitydef, 
     GROUP_CONCAT(tacf.costFlags SEPARATOR ', ') as costFlags, 
