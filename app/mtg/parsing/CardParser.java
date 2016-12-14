@@ -1,5 +1,6 @@
 package mtg.parsing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Card;
@@ -53,14 +54,8 @@ public class CardParser {
 			reportRow.putCell("abilityKey", abilityKey);
 			report.addReportRow(abilityKey, reportRow);
 		}
-		for(KeywordAbility ability : wCard.getKeywordAbilities()){
+		for(KeywordAbilityInstance ability : wCard.getKeywordAbilities()){
 			ReportRow reportRow = reportKeywordAbility(ability);
-			String abilityKey = wCard.getCard().getCardName() + ++count;
-			reportRow.putCell("abilityKey", abilityKey);
-			report.addReportRow(abilityKey, reportRow);
-		}
-		for(AbilityWord ability : wCard.getAbilityWords()){
-			ReportRow reportRow = reportAbilityWord(ability);
 			String abilityKey = wCard.getCard().getCardName() + ++count;
 			reportRow.putCell("abilityKey", abilityKey);
 			report.addReportRow(abilityKey, reportRow);
@@ -68,7 +63,7 @@ public class CardParser {
 		return report;
 	}
 	
-	public static ReportRow reportKeywordAbility(KeywordAbility ability){
+	public static ReportRow reportKeywordAbility(KeywordAbilityInstance ability){
 		return ReportFactory.prependColumns(ReportFactory.fromObject(ability), "keyword_");
 	}
 	
@@ -116,20 +111,67 @@ public class CardParser {
 		paragraph = removeReminderText(paragraph);
 		paragraph = replaceReferences(wCard, paragraph);
 		
-		List<KeywordAbility> keywordAbilities = AbilityParser.getKeywordAbilities(paragraph);
-		if(keywordAbilities != null){
+		List<KeywordAbilityInstance> keywordAbilities = parseKeywordAbilities(paragraph);
+		if(!keywordAbilities.isEmpty()){
 			wCard.getKeywordAbilities().addAll(keywordAbilities);
-//			System.out.println("keywordAbilities : " + keywordAbilities);
 			return;
 		}
 		
-		List<AbilityWord> abilityWords = AbilityParser.getAbilityWords(paragraph);
-		if(abilityWords != null){
-			wCard.getAbilityWords().addAll(abilityWords);
-//			System.out.println("abilitywords : " + abilityWords);
-			return;
+		
+		AbilityWord abilityWord = null;
+		String abilityText = paragraph;
+		if((abilityWord = AbilityParser.getNextAbilityWord(paragraph)) != null){
+			abilityText = abilityWord.getAbilityText();
 		}
 		
+		TriggeredAbility triggeredAbility;
+		ActivatedAbility activatedAbility;
+		GenericAbility additionalCost;
+		
+		if((triggeredAbility = AbilityParser.getTriggeredAbility(abilityText)) != null){
+			triggeredAbility.setAbilityWord(abilityWord);
+			wCard.getTriggeredAbilities().add(triggeredAbility);
+		} else if((activatedAbility = AbilityParser.getActivatedAbility(abilityText)) != null){
+			activatedAbility.setAbilityWord(abilityWord);
+			wCard.getActivatedAbilities().add(activatedAbility);
+		} else if((additionalCost = AbilityParser.getAdditionalCost(abilityText)) != null){
+			additionalCost.setAbilityWord(abilityWord);
+			wCard.setAdditionalCost(additionalCost);
+		} else {
+			GenericAbility continuousEffect = AbilityParser.getGenericAbility(abilityText);
+			continuousEffect.setAbilityWord(abilityWord);
+			wCard.getAbilities().add(continuousEffect);
+		}
+		
+//		throw new IllegalStateException("Couldn't find rules to parse paragraph");
+	}
+	
+	public static List<KeywordAbilityInstance> parseKeywordAbilities(String paragraph){
+		List<KeywordAbility> keywordAbilities = AbilityParser.getKeywordAbilities(paragraph);
+		List<KeywordAbilityInstance> instances = new ArrayList<KeywordAbilityInstance>();
+		if(keywordAbilities == null){
+			return instances;
+		}
+		for(KeywordAbility keywordAbility: keywordAbilities){
+			KeywordAbilityInstance instance = new KeywordAbilityInstance(keywordAbility);
+			instances.add(instance);
+		}
+		return instances;
+	}
+	
+	public static boolean parseActivatedAbility(WCard wCard, String paragraph) {
+		ActivatedAbility activatedAbility = AbilityParser.getActivatedAbility(paragraph);
+		if(activatedAbility != null){
+//			System.out.println("activatedAbility : " + activatedAbility);
+//			System.out.println("cost : " + activatedAbility.getCost());
+//			System.out.println("effect: " + activatedAbility.getEffect());
+			wCard.getActivatedAbilities().add(activatedAbility);
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean parseTriggeredAbility(WCard wCard, String paragraph) {
 		TriggeredAbility triggeredAbility = AbilityParser.getTriggeredAbility(paragraph);
 		
 		if(triggeredAbility != null){
@@ -144,32 +186,19 @@ public class CardParser {
 //			System.out.println("dependentoptinoal: " + triggeredAbility.getDependentOptional());
 //			System.out.println("dependentadditionaltext: " + triggeredAbility.getDependentAdditionalText());
 			wCard.getTriggeredAbilities().add(triggeredAbility);
-			return;
+			return true;
 		}
-		
-		ActivatedAbility activatedAbility = AbilityParser.getActivatedAbility(paragraph);
-		if(activatedAbility != null){
-//			System.out.println("activatedAbility : " + activatedAbility);
-//			System.out.println("cost : " + activatedAbility.getCost());
-//			System.out.println("effect: " + activatedAbility.getEffect());
-			wCard.getActivatedAbilities().add(activatedAbility);
-			return;
-		}
-		
-		Ability additionalCost = AbilityParser.getAdditionalCost(paragraph);
+		return false;
+	}
+	
+	public static boolean parseAdditionalCost(WCard wCard, String paragraph){
+		GenericAbility additionalCost = AbilityParser.getAdditionalCost(paragraph);
 		if(additionalCost != null){
 			wCard.setAdditionalCost(additionalCost);
 //			System.out.println("additionalCost : " + additionalCost);
-			return;
+			return true;
 		}
-		
-		Ability continuousEffect = AbilityParser.getGenericAbility(paragraph);
-//		System.out.println("************* Continuous Effect : " + continuousEffect);
-		wCard.getAbilities().add(continuousEffect);
-		return;
-		
-		
-//		throw new IllegalStateException("Couldn't find rules to parse paragraph");
+		return false;
 	}
 	
 	public static String replaceReferences(WCard wCard, String text) {

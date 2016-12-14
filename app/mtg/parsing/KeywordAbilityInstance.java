@@ -1,22 +1,64 @@
 package mtg.parsing;
 
-import mtg.definitions.KeywordAbilityDef;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-public class KeywordAbilityInstance {
+import model.catalog.KeywordAbility;
 
-	private KeywordAbilityDef definition;
+@Entity
+public class KeywordAbilityInstance extends Ability {
+
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int keywordAbilityInstanceId;
 	
-	private String amountString;
-	private Float amount;
-	private String subject;
+	@ManyToOne
+	protected KeywordAbility ability;
 	
-	private Boolean hasManaCost;
-	private Boolean isWhite;
-	private Boolean isBlue;
-	private Boolean isBlack;
-	private Boolean isRed;
-	private Boolean isGreen;
-	private Float cmc;
+	protected String amountString;
+	protected Float amount;
+	protected String subject;
 	
-	private Boolean hasNonManaCost;
+	
+	
+	public KeywordAbilityInstance(KeywordAbility ability) {
+		super();
+		this.ability = ability;
+	}
+	
+	private KeywordAbilityInstance() {
+		super();
+	}
+	
+	public KeywordAbility getAbility() {
+		return ability;
+	}
+	public void setAbility(KeywordAbility ability) {
+		this.ability = ability;
+	}
+	public String getAmountString() {
+		return amountString;
+	}
+	public void setAmountString(String amountString) {
+		this.amountString = amountString;
+	}
+	public Float getAmount() {
+		return amount;
+	}
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	
+	
+	
 }

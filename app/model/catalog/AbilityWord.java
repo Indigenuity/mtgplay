@@ -1,5 +1,6 @@
 package model.catalog;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,12 +18,13 @@ public class AbilityWord {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected long abilityWordId;
+	protected long abilityWordId; 
 
 	@Enumerated(EnumType.STRING)
 	private AbilityWordDef abilityDef;
 	
 	
+	@Column(nullable = true, columnDefinition="varchar(1000)")
 	private String abilityText;
 	
 	

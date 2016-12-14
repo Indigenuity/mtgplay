@@ -2,8 +2,10 @@ package mtg.catalog;
 
 import java.util.List;
 
+import model.Card;
 import model.catalog.AbilityWord;
 import model.catalog.KeywordAbility;
+import model.warehouse.WCard;
 import mtg.definitions.AbilityWordDef;
 import mtg.definitions.KeywordAbilityDef;
 import play.db.jpa.JPA;
@@ -41,9 +43,6 @@ public class CatalogMaster {
 	}
 	
 	
-	
-	
-	
 	public static KeywordAbility getKeywordAbility(KeywordAbilityDef abilityDef){
 		String queryString = "from KeywordAbility ka where ka.abilityDef = :abilityDef";
 		List<KeywordAbility> results = JPA.em().createQuery(queryString, KeywordAbility.class)
@@ -65,6 +64,17 @@ public class CatalogMaster {
 		if(results.size()> 1){
 			throw new IllegalStateException("Catalog is corrupted.  Two definitions found for ability word : " + abilityDef);
 		} else if(results.size() == 1){
+			return results.get(0);
+		}
+		return null;
+	}
+	
+	public static WCard getWCard(Card card) {
+		String queryString = "select wc from WCard wc join wc.card c where c = :card";
+		List<WCard> results = JPA.em().createQuery(queryString, WCard.class).setParameter("card", card).getResultList();
+		if(results.size() > 1){
+			throw new IllegalStateException("Catalog is corrupted.  Two WCards found for one Card : " + card);
+		} else if(results.size() ==1) {
 			return results.get(0);
 		}
 		return null;

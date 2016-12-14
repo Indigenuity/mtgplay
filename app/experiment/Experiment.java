@@ -9,8 +9,12 @@ import model.Card;
 import model.catalog.KeywordAbility;
 import model.warehouse.WCard;
 import mtg.catalog.CatalogMaster;
+import mtg.parsing.Ability;
 import mtg.parsing.AbilityParser;
+import mtg.parsing.ActivatedAbility;
 import mtg.parsing.CardParser;
+import mtg.parsing.GenericAbility;
+import mtg.parsing.TriggeredAbility;
 import play.db.jpa.JPA;
 import reports.CSVGenerator;
 import reports.Report;
@@ -21,23 +25,48 @@ public class Experiment {
 	public static void runExperiment() throws Exception{
 		System.out.println("Running experiment");
 		
-//		Parser.readAccess();
-		Parser.removeQueries();
 		
-//		CatalogMaster.buildCatalogs();
-//		List<Card> cards = JPA.em().createQuery("from Card c where legalities___ not like '%Un-Sets%'", Card.class)
-////				.setMaxResults(10)
-////				.setFirstResult(1)
-//				.getResultList();
-//		System.out.println("cards : " + cards.size());
+//		Ability ability;
+//		ability = new GenericAbility();
+//		JPA.em().persist(ability);
 //		
-//		List<WCard> wCards = new ArrayList<WCard>();
-//		int count = 0;
-//		for(Card card : cards) {
-//			wCards.add(CardParser.parseCard(card));
-//			if(count++ %100 == 0){
-//				System.out.println("count : " + count);
-//			}
+//		ability = new ActivatedAbility();
+//		JPA.em().persist(ability);
+		
+//		ability = new TriggeredAbility();
+//		JPA.em().persist(ability);
+//		
+//		ability = new GenericAbility();
+//		JPA.em().persist(ability);
+		
+//		Parser.readAccess();
+//		Parser.removeQueries();
+		
+//		CatalogMaster.buildCatalogs(); 
+		List<Card> cards = JPA.em().createQuery("from Card c where legalities___ not like '%Un-Sets%' and not exists (select 'found' from WCard wc where wc.card = c) ", Card.class)
+//				.setMaxResults(10)
+//				.setFirstResult(1000)
+				.getResultList();
+		System.out.println("cards : " + cards.size());
+		
+		List<WCard> wCards = new ArrayList<WCard>();
+		int count = 0;
+		for(Card card : cards) {
+			WCard wCard;
+			if((wCard = CatalogMaster.getWCard(card)) == null){
+				wCard = CardParser.parseCard(card);
+				JPA.em().persist(wCard);
+			}
+			wCards.add(wCard);
+			if(count++ %100 == 0){
+				System.out.println("count : " + count);
+				JPA.em().getTransaction().commit();
+				JPA.em().getTransaction().begin();
+			}
+		}
+		
+//		for(WCard wCard : wCards) {
+//			JPA.em().persist(wCard);
 //		}
 //		
 //		Report totalReport = new Report();

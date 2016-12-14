@@ -3,10 +3,28 @@ package mtg.parsing;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MapKeyEnumerated;
+import javax.persistence.Transient;
+
 import mtg.definitions.ManaCostType;
 
+
+@Entity
 public class ManaCost {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected long manaCostId;
+	
+	@ElementCollection(fetch=FetchType.LAZY)
+	@MapKeyEnumerated(EnumType.STRING)
 	private Map<ManaCostType, Integer> costMap = new HashMap<ManaCostType, Integer>();
 	
 	private boolean hasX = false;

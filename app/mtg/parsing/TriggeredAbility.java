@@ -1,40 +1,52 @@
 package mtg.parsing;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
+@Entity
 public class TriggeredAbility extends Ability {
 	
-	private String rawText;
-
-	private String trigger;					//Whenever X attacks | When X enters the battlefield | At the beginning of your upkeep
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int triggeredAbilityId;
+	
+	private String triggerText;					//Whenever X attacks | When X enters the battlefield | At the beginning of your upkeep
 
 	
-	private String condition;				//[trigger], if you have 40 or more life
+	private String conditionText;				//[trigger], if you have 40 or more life
 	
+	@Column(nullable = true, columnDefinition="varchar(1000)")
 	private String effect;					//[trigger], [condition], you win the game
 	private String unless;					//[trigger], [effect] unless an opponent pays 2
 	private Boolean optional;				//[trigger], you may pay 2
+	@Column(nullable = true, columnDefinition="varchar(1000)")
 	private String additionalText;			//[trigger], [effect].  You may choose new targets for that spell.
 
 	private String dependentClauseActor;	//[trigger],[effect]. If [actor] do|does, [dependentEffect]
 	
+	@Column(nullable = true, columnDefinition="varchar(1000)")
 	private String dependentEffect;			//[trigger],[effect]. If you do, draw a card.
 	private String dependentUnless;			//[trigger],[effect]. [dependentEffect] unless that player pays 2 life.
 	private Boolean dependentOptional;		//[trigger],[effect]. If you do, you may draw up to X cards.
+	@Column(nullable = true, columnDefinition="varchar(1000)")
 	private String dependentAdditionalText;	//[trigger],[effect]. [dependentEffect]. If a creature dealt damage this way would die this turn, exile it instead.
 	
 	
 	public String getTrigger() {
-		return trigger;
+		return triggerText;
 	}
 	public void setTrigger(String trigger) {
-		this.trigger = trigger;
+		this.triggerText = trigger;
 	}
 	public String getCondition() {
-		return condition;
+		return conditionText;
 	}
 	public void setCondition(String condition) {
-		this.condition = condition;
+		this.conditionText = condition;
 	}
 	public String getEffect() {
 		return effect;
@@ -71,12 +83,6 @@ public class TriggeredAbility extends Ability {
 	}
 	public void setDependentClauseActor(String dependentClauseActor) {
 		this.dependentClauseActor = dependentClauseActor;
-	}
-	public String getRawText() {
-		return rawText;
-	}
-	public void setRawText(String rawText) {
-		this.rawText = rawText;
 	}
 	public String getAdditionalText() {
 		return additionalText;

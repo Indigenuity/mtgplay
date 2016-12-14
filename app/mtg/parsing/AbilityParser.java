@@ -130,14 +130,14 @@ public class AbilityParser {
 		return costFlags;
 	}
 	
-	public static Ability getGenericAbility(String text) {
-		Ability ability = new Ability();
+	public static GenericAbility getGenericAbility(String text) {
+		GenericAbility ability = new GenericAbility();
 		ability.setEffectFlags(getEffectFlags(text));
 		return ability;
 	}
 	
-	public static Ability getAdditionalCost(String text){
-		Ability ability = new Ability();
+	public static GenericAbility getAdditionalCost(String text){
+		GenericAbility ability = new GenericAbility();
 		Matcher matcher = ADDITIONAL_COST.matcher(text);
 		if(matcher.find()){
 			ability.setCostFlags(getCostFlags(matcher.group(1)));
@@ -156,7 +156,7 @@ public class AbilityParser {
 			String effect = matcher.group(2);
 			
 			if(cost.contains("may") || cost.contains("has")){
-				System.out.println("Activated Ability has may or has");
+//				System.out.println("Activated Ability has may or has");
 				return null;
 			}
 			ability.setCost(cost);
@@ -285,6 +285,7 @@ public class AbilityParser {
 			if(matcher.find()){
 //				System.out.println("Found match : " + abilityDef);
 				AbilityWord ability = CatalogMaster.getAbilityWord(abilityDef);
+				ability.setAbilityText(matcher.group(1));
 				return ability;
 			}
 		}
